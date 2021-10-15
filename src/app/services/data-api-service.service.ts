@@ -15,7 +15,8 @@ export class DataApiServiceService {
 
   currentTasks: Task[] = SeedData.tasks;
 
-  constructor() { }
+  constructor() {
+  }
 
   getCategories(): Category[] {
     return SeedData.categories;
@@ -37,5 +38,15 @@ export class DataApiServiceService {
   sortTasksByCategory(category: Category): void {
     const sortedTasks = SeedData.tasks.filter(task => task.category == category);
     this.tasks.next(sortedTasks);
+  }
+  setAllCategories(): void {
+    const sortedTasks = SeedData.tasks;
+    this.tasks.next(sortedTasks);
+  }
+  removeTask(task: Task): void {
+    const tasksRemove = SeedData.tasks;
+    let index = tasksRemove.indexOf(task);
+    tasksRemove.splice(index, 1);
+    this.tasks.next(tasksRemove);
   }
 }

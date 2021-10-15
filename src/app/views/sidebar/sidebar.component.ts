@@ -22,4 +22,8 @@ export class SidebarComponent implements OnInit {
     this.categorySelected = category;
     this.apiService.sortTasksByCategory(category);
   }
+  sortByAllCategory(): void {
+    this.categorySelected = undefined;
+    this.apiService.setAllCategories();
+  }
 }

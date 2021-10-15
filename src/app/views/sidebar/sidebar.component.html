@@ -9,6 +9,11 @@
     </a></div>
   <div class="sidebar-wrapper">
     <ul class="nav">
+      <li class="nav-item" [class.active]="categorySelected == undefined" (click)="sortByAllCategory()">
+        <a class="nav-link">
+          All tasks
+        </a>
+      </li>
       <li class="nav-item" *ngFor="let category of categories" [class.active]="category === categorySelected"
         (click)="sortByCategory(category)">
         <a class="nav-link">

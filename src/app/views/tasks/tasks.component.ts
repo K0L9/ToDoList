@@ -9,6 +9,10 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+import { MatDialog } from '@angular/material/dialog';
+
+import { AddDialogComponent } from "src/app/add-dialog/add-dialog.component"
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -21,7 +25,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   // @ts-ignore
   @ViewChild(MatPaginator, { static: false }) private paginator: MatPaginator;
 
-  displayedColumns: string[] = ['id', 'title', 'category', 'date'];
+  displayedColumns: string[] = ['id', 'title', 'category', 'date', 'isCompleted', 'actions'];
   // @ts-ignore
   dataSource: MatTableDataSource<Task>;
 
@@ -32,7 +36,9 @@ export class TasksComponent implements OnInit, AfterViewInit {
   //@ts-ignore
   filteredOptions: Observable<string[]>;
 
-  constructor(private apiService: DataApiServiceService) { }
+  // isEmpty: boolean = this.tasks.length == 0;
+
+  constructor(private apiService: DataApiServiceService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.apiService.tasks.subscribe(tasks => this.tasks = tasks);
@@ -67,10 +73,27 @@ export class TasksComponent implements OnInit, AfterViewInit {
     this.addTableObjects();
     this.dataSource.paginator = this.paginator;
   }
+  deleteTask(task: Task): void {
+    this.apiService.removeTask(task);
+  }
+  openDialog(): void {
+    //@ts-ignore
+    let task = new Task();
+    const dialogRef = this.dialog.open(AddDialogComponent, {
+      width: '250px',
+      data: { task: task }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   private refreshTable() {
 
     this.dataSource.data = this.tasks;
     this.addTableObjects();
+
+    console.log(this.tasks);
 
 
     // @ts-ignore
@@ -86,9 +109,11 @@ export class TasksComponent implements OnInit, AfterViewInit {
         case 'date': {
           return task.date ? task.date : null;
         }
-
         case 'title': {
           return task.title;
+        }
+        case 'isCompleted': {
+          return task.isCompleted;
         }
       }
     };

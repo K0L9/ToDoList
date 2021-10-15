@@ -19,11 +19,18 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatIconRegistry } from "@angular/material/icon"
+
+import { MatDialogModule } from "@angular/material/dialog";
+import { AddDialogComponent } from './add-dialog/add-dialog.component'
+
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    TasksComponent
+    TasksComponent,
+    AddDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,12 +41,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
-
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, MatIconRegistry]
 })
 export class AppModule { }
