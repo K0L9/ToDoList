@@ -5,7 +5,31 @@
         <input matInput [(ngModel)]="data.task.title">
     </mat-form-field>
 </div>
+
+<mat-form-field appearance="fill">
+    <mat-label>Choose a deadline</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="data.task.date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+
+<mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Choose category</mat-label>
+    <input type="text" placeholder="Pick one" aria-label="Choose category" matInput [formControl]="myControl"
+        [matAutocomplete]="auto" [(ngModel)]="data.task.category">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of categories | async" [value]="option">
+            {{option}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+
+<div>
+    <mat-checkbox [checked]="data.task.isCompleted" text (change)="switchStatus()"> Is completed </mat-checkbox>
+</div>
+
 <div mat-dialog-actions>
-    <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
-    <button mat-button [mat-dialog-close]="data.task.title" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button [mat-dialog-close]="data.task" cdkFocusInitial>Ok</button>
 </div>

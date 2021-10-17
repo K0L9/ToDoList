@@ -25,6 +25,9 @@ import { MatIconRegistry } from "@angular/material/icon"
 import { MatDialogModule } from "@angular/material/dialog";
 import { AddDialogComponent } from './add-dialog/add-dialog.component'
 
+import { MatDatepickerModule } from "@angular/material/datepicker"
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +49,8 @@ import { AddDialogComponent } from './add-dialog/add-dialog.component'
     MatInputModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent, MatIconRegistry]

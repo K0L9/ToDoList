@@ -49,4 +49,9 @@ export class DataApiServiceService {
     tasksRemove.splice(index, 1);
     this.tasks.next(tasksRemove);
   }
+  addTask(task: Task): void {
+    const tasksTmp = SeedData.tasks
+    tasksTmp.push(task);
+    this.tasks.next(tasksTmp);
+  }
 }

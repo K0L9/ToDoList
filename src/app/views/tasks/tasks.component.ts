@@ -36,8 +36,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
   //@ts-ignore
   filteredOptions: Observable<string[]>;
 
-  // isEmpty: boolean = this.tasks.length == 0;
-
   constructor(private apiService: DataApiServiceService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -80,12 +78,15 @@ export class TasksComponent implements OnInit, AfterViewInit {
     //@ts-ignore
     let task = new Task();
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      width: '250px',
+      width: '400px',
       data: { task: task }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (result == undefined)
+        return;
+      let task = new Task(this.tasks[this.tasks.length - 1].id + 1, result.title, result.isCompleted, result.category, result.date);
+      this.apiService.addTask(task);
     });
   }
   private refreshTable() {
