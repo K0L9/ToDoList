@@ -82,6 +82,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
       data: { task: task }
     });
 
+    //I stayed some comments there
+
     dialogRef.afterClosed().subscribe(result => {
       if (result == undefined)
         return;
