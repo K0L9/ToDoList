@@ -82,7 +82,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
       data: { task: task }
     });
 
-    //I stayed some comments there
+    //I stayed some comments theref fsdfs d
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == undefined)
